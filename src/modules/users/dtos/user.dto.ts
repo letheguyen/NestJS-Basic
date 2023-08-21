@@ -1,7 +1,6 @@
-import { BaseDto } from 'src/common/dtoBase'
 import { IsNotEmpty, IsString, MaxLength, MinLength } from 'class-validator'
 
-export class UserDto extends BaseDto {
+export class UserDto {
   @IsNotEmpty()
   @IsString()
   userName: string

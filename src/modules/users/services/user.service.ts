@@ -1,34 +1,29 @@
+import { Model } from 'mongoose'
 import { Injectable } from '@nestjs/common'
+import { InjectModel } from '@nestjs/mongoose'
 
 import { UserDto } from '../dtos/user.dto'
+import { StoreService } from 'src/store/store.service'
+import { User, UserDocument } from '../models/user.model'
 
 @Injectable()
-export class UserService {
-  createUser(user: UserDto) {
-    return { User: user }
+export class UserService extends StoreService<UserDocument> {
+  constructor(
+    @InjectModel(User.name)
+    private readonly userModel: Model<UserDocument>
+  ) {
+    super(userModel)
+  }
+
+  async createUser(user: UserDto) {
+    return await this.userModel.create([user])
   }
 
   getAllUsers() {
-    return [
-      {
-        id: '11kfw5t',
-        name: 'Khoi Hoang',
-        age: 31,
-      },
-      {
-        id: '11kfew5t',
-        name: 'Khoi Hoang 2',
-        age: 37,
-      },
-      {
-        id: '11kfw435t',
-        name: 'Khoi Hoang 3',
-        age: 35,
-      },
-    ]
+    return 'OK'
   }
 
   getUserById(id: string, name: string) {
-    return { id, name }
+    return 'OK'
   }
 }
